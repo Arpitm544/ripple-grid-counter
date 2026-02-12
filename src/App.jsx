@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 const App = () => {
 
     const [grid,setGrid]=useState([
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9],
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
     ])
 
     const handleClick=(row,col)=>{
@@ -23,7 +23,7 @@ const App = () => {
            
            if(updatedValue%3===0){
             
-            if(col+1<3 && newGrid[row][col]<15){
+            if(col+1<3 && newGrid[row][col+1]<15){
             let updatedValue=1;
             newGrid[row][col+1]-=updatedValue
             }
@@ -31,7 +31,7 @@ const App = () => {
            //% by 5 then add +2
            if(updatedValue%5===0){
 
-            if(row+1<3 && newGrid[row][col]<15){
+            if(row+1<3 && newGrid[row+1][col]<15){
                 let updatedValue=2
                 newGrid[row+1][col]+=updatedValue;
             }
@@ -44,9 +44,17 @@ return (
     <div className='flex justify-center items-center min-h-screen'>
         <div className='grid grid-cols-3 gap-4'>
             {grid.map((rowArr,row)=>
-                rowArr.map((value,col)=>(
-                    <button className='w-20 h-20 bg-white  border-2 border-gray-400 rounded-xl hover:bg-blue-300 transition duration-500 ' key={`${row}-${col}`} onClick={()=>handleClick(row,col)}>{value}</button>
-                ))
+                rowArr.map((value,col)=>{
+                    const isLocked=value>=15
+                     return(
+                    <button className={`w-20 h-20 text-xl font-bold border-2 border-black rounded-[4px] shadow-[2px_2px_0px_black] transition duration-200
+                         ${isLocked? "bg-red-500 text-white cursor-not-allowed": value % 2 === 0? "bg-[#e0e0e0] text-black hover:scale-105": "bg-[#1a237e] text-white hover:scale-105"
+                  }
+                `} 
+                    key={`${row}-${col}`} 
+                    disabled={isLocked}
+                    onClick={()=>handleClick(row,col)}>{value}</button>
+                )})
             )}
         </div>
     </div>
