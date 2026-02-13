@@ -1,16 +1,80 @@
-# React + Vite
+# Ripple Grid Game (React Project)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a small fun project made using **React and Tailwind CSS**.
 
-Currently, two official plugins are available:
+It is a simple 3×3 grid where every box contains a number.  
+When you click on a box, the number increases and sometimes it also affects nearby boxes like a ripple.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🟦 What this project does
 
-## React Compiler
+- Shows a 3×3 grid in the center of the screen  
+- Every box starts with the number **0**
+- Box colors change depending on the number:
+  - Even numbers → Light Gray
+  - Odd numbers → Navy Blue with white text
+- If any box reaches **15**, it becomes locked and turns red
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎨 Box Design
 
-## Expanding the ESLint configuration
+Each box has:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Rounded corners (4px)
+- Shadow effect like a card
+- Different colors for even/odd values
+
+## 🧠 Clicking Rules (Ripple Logic)
+
+When you click a box:
+
+### ✅ It always increases by +1
+
+
+### Rule A: Multiple of 3
+
+If the new value becomes divisible by 3 (like 3, 6, 9…)
+
+- The box on the **right side** decreases by 1
+
+But:
+
+- If it is already the last column, nothing happens
+- If the right box is locked, it will not change
+
+---
+
+### Rule B: Multiple of 5
+
+If the new value becomes divisible by 5 (like 5, 10…)
+
+- The box **below** increases by 2
+
+But:
+
+- If it is already the bottom row, nothing happens
+- If the below box is locked, it will not change
+
+---
+
+## 🔒 Locked Boxes
+
+Once a box reaches **15 or more**:
+
+- It turns red
+- It cannot be clicked anymore
+- Other boxes cannot affect it
+
+---
+
+## ⚙️ Built With
+
+- React.js
+- Tailwind CSS
+
+---
+
+## ▶️ How to run this project
+
+1. Install dependencies
+
+```bash
+npm install
